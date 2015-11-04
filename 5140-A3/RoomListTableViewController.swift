@@ -26,6 +26,7 @@ class RoomListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.rooms = Array<Room>()
         // set up coap client
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
@@ -88,6 +89,11 @@ class RoomListTableViewController: UITableViewController {
         }
         
         self.sendMessage("device")
+        
+        if self.rooms.count == 0
+        {
+            self.noRoomLabel.text = "There is no room data retrived"
+        }
         self.tableView.reloadData()
         
     }
@@ -217,13 +223,16 @@ extension RoomListTableViewController: SCClientDelegate {
                         let result = resultJSONArray[i] as! NSDictionary
                         let roomName = result.valueForKey("room") as! String
                         let ip = result.valueForKey("ip") as! String
-                        let longtitude = result.valueForKey("longtitude") as! Double
+                        let longitude = result.valueForKey("longtitude") as! Double
                         let latitude = result.valueForKey("latitude") as! Double
-                        
+                        let plant = result.valueForKey("plant") as! String
                         
                         let newRoom = Room()
                         newRoom.roomName = roomName
                         newRoom.ip = ip
+                        newRoom.latitude = latitude
+                        newRoom.longitude = longitude
+                        newRoom.plant = plant
                         
                         self.rooms.append(newRoom)
                     }
@@ -255,6 +264,8 @@ extension RoomListTableViewController: SCClientDelegate {
             */
         }
         print(separatorLine + firstPartString + optString + separatorLine)
+        
+        self.tableView.reloadData()
     }
     
     func swiftCoapClient(client: SCClient, didFailWithError error: NSError) {
