@@ -18,6 +18,11 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     var days: [String]!
     var waterLevel: [Double]!
     
+    var coapClient: SCClient!
+    let separatorLine = "\n-----------------\n"
+    let port = "5683"
+    var host = "127.0.0.1"
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var barChartView: BarChartView!
     @IBOutlet var subtitleLabel: UILabel!
@@ -29,15 +34,30 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // test value
-        self.temperature = [20.0, 21.5, 30.0, 28.5, 20.1, 20.5, 23.8, 27.8, 19.0, 30.0];
-        self.humidity = [30.0, 23.5, 23.5, 21.3, 34.0, 30.0, 29.0, 30.0, 27.5, 26.6];
-        self.days = ["1/10/2015", "2/10/2015", "3/10/2015", "4/10/2015", "5/10/2015", "6/10/2015", "7/10/2015", "8/10/2015", "9/10/2015", "10/10/2015"]
-        self.waterLevel = [180.0, 179.0, 175.0, 174.0, 173.0, 170.0, 168.0, 500.0, 450.0, 435.0]
+        self.host = self.currentRoom.ip!
+        
+        // set up coap client
+        coapClient = SCClient(delegate: self)
+        coapClient.sendToken = true
+        coapClient.autoBlock1SZX = 2
+        
+        // send message for getting monthly data
+        let dateArray = self.month.componentsSeparatedByString("-")
+        let monthString = dateArray[0]
+        let monthInt = Int(monthString)
+        let nextMonthString = "2015-\(monthInt!+1)"
+        self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+        self.sendMessage("humidity/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+        self.sendMessage("liquid/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+        
+        self.temperature = []
+        self.humidity = []
+        self.days = []
+        self.waterLevel = []
         
         // initialize label
         let roomName = self.currentRoom.roomName!
-        self.titleLabel.text = "\(roomName) \(self.month)"
+        self.titleLabel.text = "Room \(roomName): \(self.month)"
         self.subtitleLabel.text = ""
         self.temperatureLabel.text = ""
         self.humidityLabel.text = ""
@@ -136,6 +156,19 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
         barChartView.data = barChartData
     }
     
+    
+    // send message to COAP server
+    func sendMessage(urlPath: String)
+    {
+        let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .Confirmable, payload: "test".dataUsingEncoding(NSUTF8StringEncoding))
+        
+        if let stringData = urlPath.dataUsingEncoding(NSUTF8StringEncoding) {
+            message.addOption(SCOption.UriPath.rawValue, data: stringData)
+        }
+        
+        coapClient.sendCoAPMessage(message, hostName: self.host, port: UInt16(self.port)!)
+        
+    }
 
     /*
     // MARK: - Navigation
@@ -148,3 +181,103 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     */
 
 }
+
+extension HistoryMonthViewController: SCClientDelegate {
+    func swiftCoapClient(client: SCClient, didReceiveMessage message: SCMessage) {
+        var payloadstring = ""
+        if let pay = message.payload {
+            if let string = NSString(data: pay, encoding:NSUTF8StringEncoding) {
+                payloadstring = String(string)
+                var dayArray = Array<String>()
+                do
+                {
+                    let json = try NSJSONSerialization.JSONObjectWithData(pay, options: NSJSONReadingOptions.AllowFragments)
+                    let resultJSON = json as! NSDictionary
+                    let dateType = resultJSON.valueForKey("datetype") as! String
+                    if (dateType == "temperature")
+                    {
+                        var tempArray = Array<Double>()
+                        let resultArray = resultJSON.valueForKey("result") as! NSArray
+                        for var i = 0; i < resultArray.count; i++
+                        {
+                            let result = resultArray[i] as! NSDictionary
+                            let month = result.valueForKey("month") as! Int
+                            let day = result.valueForKey("day") as! Int
+                            
+                            let dayString = "2015-\(month)-\(day)"
+                            dayArray.append(dayString)
+                            
+                            let value = result.valueForKey("value") as! Double
+                            tempArray.append(value)
+                        }
+                        self.days = dayArray
+                        self.temperature = tempArray
+                    }
+                    if (dateType == "humidity")
+                    {
+                        var array = Array<Double>()
+                        let resultArray = resultJSON.valueForKey("result") as! NSArray
+                        for var i = 0; i < resultArray.count; i++
+                        {
+                            let result = resultArray[i] as! NSDictionary
+                            let value = result.valueForKey("value") as! Double
+                            array.append(value)
+                        }
+                        self.humidity = array
+                    }
+                    if (dateType == "liquid")
+                    {
+                        var array = Array<Double>()
+                        let resultArray = resultJSON.valueForKey("result") as! NSArray
+                        for var i = 0; i < resultArray.count; i++
+                        {
+                            let result = resultArray[i] as! NSDictionary
+                            let value = result.valueForKey("value") as! Double
+                            array.append(value)
+                        }
+                        self.waterLevel = array
+                    }
+                }
+                catch _
+                {
+                    print("Error in parsing data into json")
+                }
+            }
+        }
+        
+        
+        
+        let firstPartString = "Message received with type: \(message.type.shortString())\nwith code: \(message.code.toString()) \nwith id: \(message.messageId)\nPayload: \(payloadstring)\n"
+        var optString = "Options:\n"
+        for (key, _) in message.options {
+            var optName = "Unknown"
+            
+            if let knownOpt = SCOption(rawValue: key) {
+                optName = knownOpt.toString()
+            }
+            
+            optString += "\(optName) (\(key))"
+            
+            //Add this lines to display the respective option values in the message log
+            /*
+            for value in valueArray {
+            optString += "\(value)\n"
+            }
+            optString += separatorLine
+            */
+        }
+        print(separatorLine + firstPartString + optString + separatorLine)
+        
+        self.setCharts(self.days, values1: self.temperature, values2: self.humidity, values3: self.waterLevel)
+    }
+    
+    func swiftCoapClient(client: SCClient, didFailWithError error: NSError) {
+        print("Failed with Error \(error.localizedDescription)")
+    }
+    
+    func swiftCoapClient(client: SCClient, didSendMessage message: SCMessage, number: Int) {
+        let errorString = "Message sent (\(number)) with type: \(message.type.shortString()) with id: \(message.messageId)\n"
+        print(errorString)
+    }
+}
+

@@ -23,6 +23,8 @@ class MonthTableViewController: UITableViewController {
         super.viewDidLoad()
         availableMonths = Array<String>()
         
+        self.host = self.currentRoom.ip!
+        
         // set up coap client
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
@@ -143,8 +145,8 @@ extension MonthTableViewController: SCClientDelegate {
                     for var i = 0; i < resultArray.count; i++
                     {
                         let result = resultArray[i] as! NSDictionary
-                        var month = result.valueForKey("month") as! Int
-                        let monthString = "\(++month)-2015"
+                        let month = result.valueForKey("month") as! Int
+                        let monthString = "2015-\(month)"
                         monthSet.addObject(monthString)
                     }
                     self.availableMonths = monthSet.allObjects as! Array<String>
