@@ -43,7 +43,7 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
         
         // send message for getting monthly data
         let dateArray = self.month.componentsSeparatedByString("-")
-        let monthString = dateArray[0]
+        let monthString = dateArray[1]
         let monthInt = Int(monthString)
         let nextMonthString = "2015-\(monthInt!+1)"
         self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
@@ -193,7 +193,7 @@ extension HistoryMonthViewController: SCClientDelegate {
                 {
                     let json = try NSJSONSerialization.JSONObjectWithData(pay, options: NSJSONReadingOptions.AllowFragments)
                     let resultJSON = json as! NSDictionary
-                    let dateType = resultJSON.valueForKey("datetype") as! String
+                    let dateType = resultJSON.valueForKey("datatype") as! String
                     if (dateType == "temperature")
                     {
                         var tempArray = Array<Double>()
