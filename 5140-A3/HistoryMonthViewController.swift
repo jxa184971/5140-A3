@@ -18,7 +18,7 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     var days: [String]!
     var waterLevel: [Double]!
     
-    //var coapClient: SCClient!
+    var coapClient: SCClient!
     let separatorLine = "\n-----------------\n"
     let port = "5683"
     var host = "127.0.0.1"
@@ -37,11 +37,9 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
         self.host = self.currentRoom.ip!
         
         // set up coap client
-        /*
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
         coapClient.autoBlock1SZX = 2
-*/
         
         // send message for getting monthly data
         let dateArray = self.month.componentsSeparatedByString("-")
@@ -163,18 +161,13 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     // send message to COAP server
     func sendMessage(urlPath: String)
     {
-        let coapClient = SCClient(delegate: self)
-        coapClient.sendToken = true
-        coapClient.autoBlock1SZX = 2
-        
         let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .Confirmable, payload: "test".dataUsingEncoding(NSUTF8StringEncoding))
         
         if let stringData = urlPath.dataUsingEncoding(NSUTF8StringEncoding) {
             message.addOption(SCOption.UriPath.rawValue, data: stringData)
         }
         
-        coapClient.sendCoAPMessage(message, hostName: self.host, port: UInt16(self.port)!)
-        
+        self.coapClient.sendCoAPMessage(message, hostName: self.host, port: UInt16(self.port)!)
     }
 
     /*
@@ -283,6 +276,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             let nextMonthString = "2015-\(monthInt!+1)"
             
             self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+            return
         }
         
         if (self.humidity.count == 0)
@@ -293,6 +287,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             let nextMonthString = "2015-\(monthInt!+1)"
             
             self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+            return
         }
         
         if (self.waterLevel.count == 0)
@@ -303,6 +298,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             let nextMonthString = "2015-\(monthInt!+1)"
             
             self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+            return
         }
         
         // set the charts
