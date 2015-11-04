@@ -212,15 +212,6 @@ extension HistoryMonthViewController: SCClientDelegate {
                         }
                         self.days = dayArray
                         self.temperature = tempArray
-                        
-                        /*
-                        let dateArray = self.month.componentsSeparatedByString("-")
-                        let monthString = dateArray[1]
-                        let monthInt = Int(monthString)
-                        let nextMonthString = "2015-\(monthInt!+1)"
-                        
-                        self.sendMessage("humidity/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
-                        */
                     }
                     if (dateType == "humidity")
                     {
