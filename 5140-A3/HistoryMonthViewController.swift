@@ -215,7 +215,7 @@ extension HistoryMonthViewController: SCClientDelegate {
                             dayArray.append(dayString)
                             
                             let value = result.valueForKey("value") as! Double
-                            tempArray.append(value)
+                            tempArray.append(value/1000.0)
                         }
                         self.days = dayArray
                         self.temperature = tempArray
@@ -228,7 +228,7 @@ extension HistoryMonthViewController: SCClientDelegate {
                         {
                             let result = resultArray[i] as! NSDictionary
                             let value = result.valueForKey("value") as! Double
-                            array.append(value)
+                            array.append(value/1000.0)
                         }
                         self.humidity = array
                     }
@@ -273,6 +273,39 @@ extension HistoryMonthViewController: SCClientDelegate {
         }
         print(separatorLine + firstPartString + optString + separatorLine)
         
+        
+        // make sure data transmission error, send the request again
+        if (self.days.count == 0 || self.temperature.count == 0)
+        {
+            let dateArray = self.month.componentsSeparatedByString("-")
+            let monthString = dateArray[1]
+            let monthInt = Int(monthString)
+            let nextMonthString = "2015-\(monthInt!+1)"
+            
+            self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+        }
+        
+        if (self.humidity.count == 0)
+        {
+            let dateArray = self.month.componentsSeparatedByString("-")
+            let monthString = dateArray[1]
+            let monthInt = Int(monthString)
+            let nextMonthString = "2015-\(monthInt!+1)"
+            
+            self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+        }
+        
+        if (self.waterLevel.count == 0)
+        {
+            let dateArray = self.month.componentsSeparatedByString("-")
+            let monthString = dateArray[1]
+            let monthInt = Int(monthString)
+            let nextMonthString = "2015-\(monthInt!+1)"
+            
+            self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+        }
+        
+        // set the charts
         if self.days.count != 0 && self.temperature.count != 0 && self.humidity.count != 0 && self.waterLevel.count != 0
         {
             self.setCharts(self.days, values1: self.temperature, values2: self.humidity, values3: self.waterLevel)
