@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="14F1021" minimumToolsVersion="Xcode 7.0">
+    <entity name="CentralServer" representedClassName=".CentralServer" syncable="YES">
+        <attribute name="ip" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Room" representedClassName=".Room" syncable="YES">
+        <attribute name="ip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="plant" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roomName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Room" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="CentralServer" positionX="-63" positionY="18" width="128" height="60"/>
+    </elements>
+</model>
