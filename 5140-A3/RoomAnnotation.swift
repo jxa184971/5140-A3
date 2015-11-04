@@ -17,7 +17,7 @@ class RoomAnnotation: NSObject, MKAnnotation {
     
     init(room:Room) {
         self.room = room
-        self.title = room.roomName
+        self.title = "Room \(room.roomName)"
         self.coordinate = CLLocationCoordinate2D(latitude: Double(room.latitude!), longitude: Double(room.longitude!))
     }
 }

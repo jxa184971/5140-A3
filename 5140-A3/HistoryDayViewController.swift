@@ -26,7 +26,7 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
         // test value
         self.temperature = [20.0, 21.5, 30.0, 28.5, 20.1];
         self.humidity = [30.0, 23.5, 23.5, 21.3, 34];

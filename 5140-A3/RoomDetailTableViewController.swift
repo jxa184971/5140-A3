@@ -26,7 +26,7 @@ class RoomDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.hidden = true
-        self.navigationItem.title = self.currentRoom.roomName
+        self.navigationItem.title = "Room \(self.currentRoom.roomName)"
 
         // setup coap client
         coapClient = SCClient(delegate: self)

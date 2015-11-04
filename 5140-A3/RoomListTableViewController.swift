@@ -120,7 +120,7 @@ class RoomListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("roomCell", forIndexPath: indexPath) as! RoomCell
-        cell.roomNameLabel.text = self.rooms[indexPath.row].roomName
+        cell.roomNameLabel.text = "Room \(self.rooms[indexPath.row].roomName)"
         cell.plantLabel.text = self.rooms[indexPath.row].plant
         return cell
     }
@@ -258,7 +258,5 @@ extension RoomListTableViewController: SCClientDelegate {
         let errorString = "Message sent (\(number)) with type: \(message.type.shortString()) with id: \(message.messageId)\n"
         print(errorString)
     }
-    
-    
 }
 

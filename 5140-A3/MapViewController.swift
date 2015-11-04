@@ -146,7 +146,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.mapView.setRegion(region, animated: true)
         
         self.currentRoom = roomAnnotation.room
-        let roomName = roomAnnotation.room.roomName!
+        let roomName = roomAnnotation.title!
         let plant = roomAnnotation.room.plant!
         self.roomNameLabel.text = "Room Name: \(roomName)"
         self.plantLabel.text = "Plant: \(plant)"
