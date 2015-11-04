@@ -27,6 +27,7 @@ class RoomListTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.rooms = Array<Room>()
+        
         // set up coap client
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
@@ -135,29 +136,6 @@ class RoomListTableViewController: UITableViewController {
         return true
     }
     */
-
-    
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            
-            self.managedObjectContext.deleteObject(self.rooms[indexPath.row])
-            self.rooms.removeAtIndex(indexPath.row)
-            do
-            {
-                try self.managedObjectContext.save()
-            }
-            catch
-            {
-                print("Could not delete room")
-            }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            
-            self.viewWillAppear(true)
-        } else if editingStyle == .Insert {
-
-        }    
-    }
 
 
     /*

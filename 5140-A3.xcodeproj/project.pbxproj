@@ -11,6 +11,7 @@
 		8211EA4D1BE5C58900F1286C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8211EA4C1BE5C58900F1286C /* MapKit.framework */; };
 		8211EA501BE5C64700F1286C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8211EA4F1BE5C64700F1286C /* MapViewController.swift */; };
 		8211EA521BE5CCB900F1286C /* RoomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8211EA511BE5CCB900F1286C /* RoomAnnotation.swift */; };
+		821D639C1BE9C08A00FDED15 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821D639B1BE9C08A00FDED15 /* Room.swift */; };
 		8223BDFE1BE581AF00C0C5B5 /* DayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223BDFD1BE581AF00C0C5B5 /* DayTableViewController.swift */; };
 		8223BE021BE5822100C0C5B5 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223BE011BE5822100C0C5B5 /* DayCell.swift */; };
 		8223BE041BE5864900C0C5B5 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223BE031BE5864900C0C5B5 /* DayViewController.swift */; };
@@ -42,8 +43,6 @@
 		82E0DBE61BDC9F7D00C3835F /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0DBE51BDC9F7D00C3835F /* ButtonTableViewCell.swift */; };
 		82F9CB091BDD924B00C9BB15 /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F9CB081BDD924B00C9BB15 /* RoomCell.swift */; };
 		82F9CB0C1BDD93C100C9BB15 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82F9CB0A1BDD93C100C9BB15 /* Model.xcdatamodeld */; };
-		82F9CB0F1BDD941100C9BB15 /* Room+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F9CB0D1BDD941100C9BB15 /* Room+CoreDataProperties.swift */; };
-		82F9CB101BDD941100C9BB15 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F9CB0E1BDD941100C9BB15 /* Room.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +95,7 @@
 		8211EA4C1BE5C58900F1286C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8211EA4F1BE5C64700F1286C /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		8211EA511BE5CCB900F1286C /* RoomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomAnnotation.swift; sourceTree = "<group>"; };
+		821D639B1BE9C08A00FDED15 /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		8223BDFD1BE581AF00C0C5B5 /* DayTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTableViewController.swift; sourceTree = "<group>"; };
 		8223BE011BE5822100C0C5B5 /* DayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		8223BE031BE5864900C0C5B5 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
@@ -130,8 +130,6 @@
 		82E0DBE51BDC9F7D00C3835F /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		82F9CB081BDD924B00C9BB15 /* RoomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		82F9CB0B1BDD93C100C9BB15 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		82F9CB0D1BDD941100C9BB15 /* Room+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Room+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		82F9CB0E1BDD941100C9BB15 /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,8 +286,7 @@
 			children = (
 				828BA2861BE8C5D90051208C /* CentralServer+CoreDataProperties.swift */,
 				828BA2871BE8C5D90051208C /* CentralServer.swift */,
-				82F9CB0D1BDD941100C9BB15 /* Room+CoreDataProperties.swift */,
-				82F9CB0E1BDD941100C9BB15 /* Room.swift */,
+				821D639B1BE9C08A00FDED15 /* Room.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -399,8 +396,8 @@
 			files = (
 				8223BE041BE5864900C0C5B5 /* DayViewController.swift in Sources */,
 				8265F5091BDF459F004C100B /* RoomDetailTableViewController.swift in Sources */,
+				821D639C1BE9C08A00FDED15 /* Room.swift in Sources */,
 				828BA2891BE8C5D90051208C /* CentralServer.swift in Sources */,
-				82F9CB0F1BDD941100C9BB15 /* Room+CoreDataProperties.swift in Sources */,
 				8211EA501BE5C64700F1286C /* MapViewController.swift in Sources */,
 				82D736321BDC999900B554EB /* AddRoomTableViewCell.swift in Sources */,
 				82C242571BE704970051AB21 /* SCMessage.swift in Sources */,
@@ -414,7 +411,6 @@
 				82F9CB0C1BDD93C100C9BB15 /* Model.xcdatamodeld in Sources */,
 				828BA2881BE8C5D90051208C /* CentralServer+CoreDataProperties.swift in Sources */,
 				82C242551BE704970051AB21 /* GCDAsyncUdpSocket.m in Sources */,
-				82F9CB101BDD941100C9BB15 /* Room.swift in Sources */,
 				828BA2851BE8C4740051208C /* PropertyCell.swift in Sources */,
 				82C242561BE704970051AB21 /* SCClient.swift in Sources */,
 				8265F50B1BDF45C3004C100B /* RoomDetailCell.swift in Sources */,

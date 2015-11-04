@@ -2,14 +2,20 @@
 //  Room.swift
 //  5140-A3
 //
-//  Created by 一川 黄 on 26/10/2015.
+//  Created by 一川 黄 on 4/11/2015.
 //  Copyright © 2015 Yichuan Huang. All rights reserved.
 //
 
-import Foundation
-import CoreData
+import UIKit
 
+class Room: NSObject {
 
-class Room: NSManagedObject {
-
+    var roomName: String!
+    var ip: String!
+    var plant: String!
+    var latitude: Double!
+    var longitude: Double!
+    
+    
+    
 }
