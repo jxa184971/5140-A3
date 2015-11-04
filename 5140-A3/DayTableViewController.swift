@@ -14,21 +14,50 @@ class DayTableViewController: UITableViewController {
     var currentRoom:Room!
     var controller:DayViewController!
     
+    var coapClient: SCClient!
+    let separatorLine = "\n-----------------\n"
+    let port = "5683"
+    var host = "127.0.0.1"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         availableDays = Array<String>()
 
+        self.host = self.currentRoom.ip!
+        
+        // set up coap client
+        coapClient = SCClient(delegate: self)
+        coapClient.sendToken = true
+        coapClient.autoBlock1SZX = 2
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        availableDays = ["01/11/2015", "31/10/2015", "30/10/2015"]
+        self.availableDays = Array<String>()
+        
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let today = formatter.stringFromDate(NSDate())
+        self.sendMessage("temperature/hourlyaverage?start=2015-09-01&end=\(today)")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // send message to COAP server
+    func sendMessage(urlPath: String)
+    {
+        let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .Confirmable, payload: "test".dataUsingEncoding(NSUTF8StringEncoding))
+        
+        if let stringData = urlPath.dataUsingEncoding(NSUTF8StringEncoding) {
+            message.addOption(SCOption.UriPath.rawValue, data: stringData)
+        }
+        
+        coapClient.sendCoAPMessage(message, hostName: self.host, port: UInt16(self.port)!)
+        
     }
 
     // MARK: - Table view data source
@@ -104,3 +133,68 @@ class DayTableViewController: UITableViewController {
 
 
 }
+
+extension DayTableViewController: SCClientDelegate {
+    func swiftCoapClient(client: SCClient, didReceiveMessage message: SCMessage) {
+        var payloadstring = ""
+        if let pay = message.payload {
+            if let string = NSString(data: pay, encoding:NSUTF8StringEncoding) {
+                payloadstring = String(string)
+                var daySet = NSMutableSet()
+                do
+                {
+                    let json = try NSJSONSerialization.JSONObjectWithData(pay, options: NSJSONReadingOptions.AllowFragments)
+                    let resultJSON = json as! NSDictionary
+                    let resultArray = resultJSON.valueForKey("result") as! NSArray
+                    for var i = 0; i < resultArray.count; i++
+                    {
+                        let result = resultArray[i] as! NSDictionary
+                        let month = result.valueForKey("month") as! Int
+                        let day = result.valueForKey("day") as! Int
+                        let dayString = "2015-\(month)-\(day)"
+                        daySet.addObject(dayString)
+                    }
+                    self.availableDays = daySet.allObjects as! Array<String>
+                }
+                catch _
+                {
+                    print("Error in parsing data into json")
+                }
+                self.tableView.reloadData()
+            }
+        }
+        
+        let firstPartString = "Message received with type: \(message.type.shortString())\nwith code: \(message.code.toString()) \nwith id: \(message.messageId)\nPayload: \(payloadstring)\n"
+        var optString = "Options:\n"
+        for (key, _) in message.options {
+            var optName = "Unknown"
+            
+            if let knownOpt = SCOption(rawValue: key) {
+                optName = knownOpt.toString()
+            }
+            
+            optString += "\(optName) (\(key))"
+            
+            //Add this lines to display the respective option values in the message log
+            /*
+            for value in valueArray {
+            optString += "\(value)\n"
+            }
+            optString += separatorLine
+            */
+        }
+        print(separatorLine + firstPartString + optString + separatorLine)
+        
+        self.tableView.reloadData()
+    }
+    
+    func swiftCoapClient(client: SCClient, didFailWithError error: NSError) {
+        print("Failed with Error \(error.localizedDescription)")
+    }
+    
+    func swiftCoapClient(client: SCClient, didSendMessage message: SCMessage, number: Int) {
+        let errorString = "Message sent (\(number)) with type: \(message.type.shortString()) with id: \(message.messageId)\n"
+        print(errorString)
+    }
+}
+

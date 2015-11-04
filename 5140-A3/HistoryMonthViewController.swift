@@ -245,8 +245,6 @@ extension HistoryMonthViewController: SCClientDelegate {
             }
         }
         
-        
-        
         let firstPartString = "Message received with type: \(message.type.shortString())\nwith code: \(message.code.toString()) \nwith id: \(message.messageId)\nPayload: \(payloadstring)\n"
         var optString = "Options:\n"
         for (key, _) in message.options {
@@ -268,7 +266,10 @@ extension HistoryMonthViewController: SCClientDelegate {
         }
         print(separatorLine + firstPartString + optString + separatorLine)
         
-        self.setCharts(self.days, values1: self.temperature, values2: self.humidity, values3: self.waterLevel)
+        if self.days.count != 0 && self.temperature.count != 0 && self.humidity.count != 0 && self.waterLevel.count != 0
+        {
+            self.setCharts(self.days, values1: self.temperature, values2: self.humidity, values3: self.waterLevel)
+        }
     }
     
     func swiftCoapClient(client: SCClient, didFailWithError error: NSError) {
