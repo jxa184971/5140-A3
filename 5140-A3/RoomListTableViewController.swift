@@ -221,7 +221,8 @@ extension RoomListTableViewController: SCClientDelegate {
                     for var i = 0; i < resultJSONArray.count; i++
                     {
                         let result = resultJSONArray[i] as! NSDictionary
-                        let roomName = result.valueForKey("room") as! String
+                        let roomId = result.valueForKey("room") as! NSNumber
+                        let roomName = String(roomId)
                         let ip = result.valueForKey("ip") as! String
                         let longitude = result.valueForKey("longtitude") as! Double
                         let latitude = result.valueForKey("latitude") as! Double
