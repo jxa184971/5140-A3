@@ -191,7 +191,7 @@ extension RoomListTableViewController: SCClientDelegate {
         if let pay = message.payload {
             if let string = NSString(data: pay, encoding:NSUTF8StringEncoding) {
                 payloadstring = String(string)
-                
+                var newRoomArray = Array<Room>()
                 do
                 {
                     let json = try NSJSONSerialization.JSONObjectWithData(pay, options: NSJSONReadingOptions.AllowFragments)
@@ -213,8 +213,10 @@ extension RoomListTableViewController: SCClientDelegate {
                         newRoom.longitude = longitude
                         newRoom.plant = plant
                         
-                        self.rooms.append(newRoom)
+                        newRoomArray.append(newRoom)
                     }
+                    print(newRoomArray.count)
+                    self.rooms = newRoomArray
                 }
                 catch _
                 {
