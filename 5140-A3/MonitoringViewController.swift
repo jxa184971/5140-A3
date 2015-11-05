@@ -27,7 +27,7 @@ class MonitoringViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = self.currentRoom.roomName
+        self.navigationItem.title = "Room \(self.currentRoom.roomName)"
         
         // test value
         self.xAxis = []
@@ -58,7 +58,7 @@ class MonitoringViewController: UIViewController {
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
         coapClient.autoBlock1SZX = 2
-        self.host = self.currentRoom.ip
+        self.host = self.currentRoom.ip!
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -200,11 +200,11 @@ extension MonitoringViewController: SCClientDelegate {
                 
                 let temperatureEntry = resultJSON?.valueForKey("temperature") as! NSDictionary
                 let tempString = temperatureEntry.valueForKey("value") as! Double
-                let temp = Double(tempString) / 1000
+                let temp = Double(tempString) / 1000.0
                 
                 let humidityEntry = resultJSON?.valueForKey("humidity") as! NSDictionary
                 let humidityString = humidityEntry.valueForKey("value") as! Double
-                let humidity = Double(humidityString) / 1000
+                let humidity = Double(humidityString) / 1000.0
                 
                 let liquidEntry = resultJSON?.valueForKey("liquid") as! NSDictionary
                 let waterLevelString = liquidEntry.valueForKey("value") as! Double

@@ -17,7 +17,6 @@
 		8223BE041BE5864900C0C5B5 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223BE031BE5864900C0C5B5 /* DayViewController.swift */; };
 		8223BE061BE588F300C0C5B5 /* MonthTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223BE051BE588F300C0C5B5 /* MonthTableViewController.swift */; };
 		8223BE081BE58A4E00C0C5B5 /* HistoryMonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223BE071BE58A4E00C0C5B5 /* HistoryMonthViewController.swift */; };
-		8265F5071BDDB801004C100B /* SetPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8265F5061BDDB801004C100B /* SetPropertyViewController.swift */; };
 		8265F5091BDF459F004C100B /* RoomDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8265F5081BDF459F004C100B /* RoomDetailTableViewController.swift */; };
 		8265F50B1BDF45C3004C100B /* RoomDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8265F50A1BDF45C3004C100B /* RoomDetailCell.swift */; };
 		826E47AD1BE4753D000F7BEB /* HistoryDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826E47AC1BE4753D000F7BEB /* HistoryDayViewController.swift */; };
@@ -38,8 +37,6 @@
 		82D736221BDC930B00B554EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82D736201BDC930B00B554EB /* LaunchScreen.storyboard */; };
 		82D7362A1BDC976900B554EB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D736291BDC976900B554EB /* CoreData.framework */; };
 		82D7362E1BDC980E00B554EB /* RoomListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D7362D1BDC980E00B554EB /* RoomListTableViewController.swift */; };
-		82D736301BDC982200B554EB /* AddRoomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D7362F1BDC982200B554EB /* AddRoomTableViewController.swift */; };
-		82D736321BDC999900B554EB /* AddRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D736311BDC999900B554EB /* AddRoomTableViewCell.swift */; };
 		82E0DBE61BDC9F7D00C3835F /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0DBE51BDC9F7D00C3835F /* ButtonTableViewCell.swift */; };
 		82F9CB091BDD924B00C9BB15 /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F9CB081BDD924B00C9BB15 /* RoomCell.swift */; };
 		82F9CB0C1BDD93C100C9BB15 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82F9CB0A1BDD93C100C9BB15 /* Model.xcdatamodeld */; };
@@ -101,7 +98,6 @@
 		8223BE031BE5864900C0C5B5 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
 		8223BE051BE588F300C0C5B5 /* MonthTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthTableViewController.swift; sourceTree = "<group>"; };
 		8223BE071BE58A4E00C0C5B5 /* HistoryMonthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryMonthViewController.swift; sourceTree = "<group>"; };
-		8265F5061BDDB801004C100B /* SetPropertyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPropertyViewController.swift; sourceTree = "<group>"; };
 		8265F5081BDF459F004C100B /* RoomDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomDetailTableViewController.swift; sourceTree = "<group>"; };
 		8265F50A1BDF45C3004C100B /* RoomDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomDetailCell.swift; sourceTree = "<group>"; };
 		826E47A81BE45E68000F7BEB /* 5140-A3-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "5140-A3-Bridging-Header.h"; path = "5140-A3/5140-A3-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -125,8 +121,6 @@
 		82D736231BDC930B00B554EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82D736291BDC976900B554EB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		82D7362D1BDC980E00B554EB /* RoomListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomListTableViewController.swift; sourceTree = "<group>"; };
-		82D7362F1BDC982200B554EB /* AddRoomTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRoomTableViewController.swift; sourceTree = "<group>"; };
-		82D736311BDC999900B554EB /* AddRoomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRoomTableViewCell.swift; sourceTree = "<group>"; };
 		82E0DBE51BDC9F7D00C3835F /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		82F9CB081BDD924B00C9BB15 /* RoomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		82F9CB0B1BDD93C100C9BB15 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -185,16 +179,6 @@
 				828BA28A1BE8C9340051208C /* PropertyViewController.swift */,
 			);
 			name = Setting;
-			sourceTree = "<group>";
-		};
-		82BEF4071BE22AF50039C044 /* Add */ = {
-			isa = PBXGroup;
-			children = (
-				82D7362F1BDC982200B554EB /* AddRoomTableViewController.swift */,
-				82D736311BDC999900B554EB /* AddRoomTableViewCell.swift */,
-				8265F5061BDDB801004C100B /* SetPropertyViewController.swift */,
-			);
-			name = Add;
 			sourceTree = "<group>";
 		};
 		82BEF5B41BE233D70039C044 /* Products */ = {
@@ -270,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				826E479E1BE457B4000F7BEB /* Hisotry */,
-				82BEF4071BE22AF50039C044 /* Add */,
 				820171021BE1A2D700455228 /* Real-Time Monitoring */,
 				82D7362D1BDC980E00B554EB /* RoomListTableViewController.swift */,
 				82F9CB081BDD924B00C9BB15 /* RoomCell.swift */,
@@ -399,9 +382,7 @@
 				821D639C1BE9C08A00FDED15 /* Room.swift in Sources */,
 				828BA2891BE8C5D90051208C /* CentralServer.swift in Sources */,
 				8211EA501BE5C64700F1286C /* MapViewController.swift in Sources */,
-				82D736321BDC999900B554EB /* AddRoomTableViewCell.swift in Sources */,
 				82C242571BE704970051AB21 /* SCMessage.swift in Sources */,
-				82D736301BDC982200B554EB /* AddRoomTableViewController.swift in Sources */,
 				82BEF5C81BE234F60039C044 /* MonitoringViewController.swift in Sources */,
 				82F9CB091BDD924B00C9BB15 /* RoomCell.swift in Sources */,
 				828BA2831BE8C43B0051208C /* SettingTableViewController.swift in Sources */,
@@ -414,7 +395,6 @@
 				828BA2851BE8C4740051208C /* PropertyCell.swift in Sources */,
 				82C242561BE704970051AB21 /* SCClient.swift in Sources */,
 				8265F50B1BDF45C3004C100B /* RoomDetailCell.swift in Sources */,
-				8265F5071BDDB801004C100B /* SetPropertyViewController.swift in Sources */,
 				828BA28B1BE8C9340051208C /* PropertyViewController.swift in Sources */,
 				82D7362E1BDC980E00B554EB /* RoomListTableViewController.swift in Sources */,
 				82E0DBE61BDC9F7D00C3835F /* ButtonTableViewCell.swift in Sources */,

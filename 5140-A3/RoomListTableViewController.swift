@@ -26,7 +26,16 @@ class RoomListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        /*
+        let room = Room()
+        room.roomName = "1"
+        room.ip = "127.0.0.1"
+        room.plant = "Plant"
+        */
+        
         self.rooms = Array<Room>()
+        //self.rooms.append(room)
         
         // set up coap client
         coapClient = SCClient(delegate: self)
@@ -37,7 +46,7 @@ class RoomListTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
-        
+        self.noRoomLabel.text = ""
         
         
         /*
