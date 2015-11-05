@@ -177,11 +177,6 @@ class RoomListTableViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "addRoomSegue"
-        {
-            let controller = segue.destinationViewController as! AddRoomTableViewController
-            controller.managedObjectContext = self.managedObjectContext
-        }
         if segue.identifier == "roomDetailSegue"
         {
             let controller = segue.destinationViewController as! RoomDetailTableViewController
