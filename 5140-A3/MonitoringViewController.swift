@@ -217,6 +217,12 @@ extension MonitoringViewController: SCClientDelegate {
                 print("Error in parsing data into json")
             }
         }
+        else
+        {
+            self.sendMessage()
+        }
+        
+        
         let firstPartString = "Message received with type: \(message.type.shortString())\nwith code: \(message.code.toString()) \nwith id: \(message.messageId)\nPayload: \(payloadstring)"
         var optString = "Options:\n"
         for (key, _) in message.options {
