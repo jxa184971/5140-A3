@@ -30,6 +30,8 @@ class DayViewController: UIViewController, ChartViewDelegate {
     let port = "5683"
     var host = "127.0.0.1"
     
+    var server: CentralServer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,8 +39,9 @@ class DayViewController: UIViewController, ChartViewDelegate {
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
         coapClient.autoBlock1SZX = 2
+        self.host = self.server.ip!
         
-        self.sendMessage("temperature/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)")
+        self.sendMessage("temperature/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)&room=\(self.currentRoom.roomName)")
         
         self.temperature = []
         self.humidity = []
@@ -275,19 +278,19 @@ extension DayViewController: SCClientDelegate {
         // make sure data transmission error, send the request again
         if (self.time.count == 0 || self.temperature.count == 0)
         {
-            self.sendMessage("temperature/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)")
+            self.sendMessage("temperature/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)&room=\(self.currentRoom.roomName)")
             return
         }
         
         if (self.humidity.count == 0)
         {
-            self.sendMessage("humidity/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)")
+            self.sendMessage("humidity/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)&room=\(self.currentRoom.roomName)")
             return
         }
         
         if (self.waterLevel.count == 0)
         {
-            self.sendMessage("liquid/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)")
+            self.sendMessage("liquid/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)&room=\(self.currentRoom.roomName)")
             return
         }
         

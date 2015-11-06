@@ -16,6 +16,7 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
     var humidity: [Double]!
     var time: [String]!
     var waterLevel: [Double]!
+    var maxCoapTimes: Int = 0
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var lineChartView: LineChartView!
@@ -29,6 +30,8 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
     let port = "5683"
     var host = "127.0.0.1"
     
+    var server: CentralServer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,12 +39,13 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
         coapClient.autoBlock1SZX = 2
+        self.host = self.server.ip!
         
         // send request
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let today = formatter.stringFromDate(NSDate())
-        self.sendMessage("temperature/hourlyaverage?start=\(today)&end=\(today)")
+        self.sendMessage("temperature/hourlyaverage?start=\(today)&end=\(today)&room=\(self.currentRoom.roomName)")
         
         self.temperature = []
         self.humidity = []
@@ -172,6 +176,7 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
         }
         
         self.coapClient.sendCoAPMessage(message, hostName: self.host, port: UInt16(self.port)!)
+        
     }
 
     // MARK: - Navigation
@@ -180,12 +185,14 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
         {
             let controller =  segue.destinationViewController as! DayTableViewController
             controller.currentRoom = self.currentRoom
+            controller.server = self.server
         }
         
         if segue.identifier == "monthSegue"
         {
             let controller = segue.destinationViewController as! MonthTableViewController
             controller.currentRoom = self.currentRoom
+            controller.server = self.server
         }
     }
 
@@ -279,13 +286,14 @@ extension HistoryDayViewController: SCClientDelegate {
         print(separatorLine + firstPartString + optString + separatorLine)
         
         
+        
         // make sure data transmission error, send the request again
         if (self.time.count == 0 || self.temperature.count == 0)
         {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let today = formatter.stringFromDate(NSDate())
-            self.sendMessage("temperature/hourlyaverage?start=\(today)&end=\(today)")
+            self.sendMessage("temperature/hourlyaverage?start=\(today)&end=\(today)&room=\(self.currentRoom.roomName)")
             return
         }
         
@@ -294,7 +302,7 @@ extension HistoryDayViewController: SCClientDelegate {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let today = formatter.stringFromDate(NSDate())
-            self.sendMessage("humidity/hourlyaverage?start=\(today)&end=\(today)")
+            self.sendMessage("humidity/hourlyaverage?start=\(today)&end=\(today)&room=\(self.currentRoom.roomName)")
             return
         }
         
@@ -303,7 +311,7 @@ extension HistoryDayViewController: SCClientDelegate {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let today = formatter.stringFromDate(NSDate())
-            self.sendMessage("liquid/hourlyaverage?start=\(today)&end=\(today)")
+            self.sendMessage("liquid/hourlyaverage?start=\(today)&end=\(today)&room=\(self.currentRoom.roomName)")
             return
         }
         

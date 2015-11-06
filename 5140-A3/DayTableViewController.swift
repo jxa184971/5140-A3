@@ -19,11 +19,13 @@ class DayTableViewController: UITableViewController {
     let port = "5683"
     var host = "127.0.0.1"
     
+    var server: CentralServer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         availableDays = Array<String>()
 
-        self.host = self.currentRoom.ip!
+        self.host = self.server.ip!
         
         // set up coap client
         coapClient = SCClient(delegate: self)
@@ -39,7 +41,7 @@ class DayTableViewController: UITableViewController {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let today = formatter.stringFromDate(NSDate())
-        self.sendMessage("temperature/hourlyaverage?start=2015-09-01&end=\(today)")
+        self.sendMessage("temperature/hourlyaverage?start=2015-09-01&end=\(today)&room=\(self.currentRoom.roomName)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -128,6 +130,7 @@ class DayTableViewController: UITableViewController {
             let controller = segue.destinationViewController as! DayViewController
             controller.currentRoom = self.currentRoom
             self.controller = controller
+            controller.server = self.server
         }
     }
 

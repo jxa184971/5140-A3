@@ -19,6 +19,8 @@ class RoomDetailTableViewController: UITableViewController {
     var host: String!
     let port = "5683"
     
+    var server: CentralServer!
+    
     var temperature: Double!
     var humidity:Double!
     var waterLevel: Double!
@@ -170,6 +172,7 @@ class RoomDetailTableViewController: UITableViewController {
         {
             let controller = segue.destinationViewController as! HistoryDayViewController
             controller.currentRoom = self.currentRoom
+            controller.server = self.server
         }
     }
 

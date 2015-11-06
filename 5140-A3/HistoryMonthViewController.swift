@@ -23,6 +23,8 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     let port = "5683"
     var host = "127.0.0.1"
     
+    var server: CentralServer!
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var barChartView: BarChartView!
     @IBOutlet var subtitleLabel: UILabel!
@@ -34,7 +36,7 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.host = self.currentRoom.ip!
+        self.host = self.server.ip!
         
         // set up coap client
         coapClient = SCClient(delegate: self)
@@ -47,7 +49,7 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
         let monthInt = Int(monthString)
         let nextMonthString = "2015-\(monthInt!+1)"
         
-        self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+        self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01&room=\(self.currentRoom.roomName)")
         //self.sendMessage("humidity/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
         //self.sendMessage("liquid/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
         
@@ -276,7 +278,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             let monthInt = Int(monthString)
             let nextMonthString = "2015-\(monthInt!+1)"
             
-            self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+            self.sendMessage("temperature/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01&room=\(self.currentRoom.roomName)")
             return
         }
         
@@ -287,7 +289,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             let monthInt = Int(monthString)
             let nextMonthString = "2015-\(monthInt!+1)"
             
-            self.sendMessage("humidity/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+            self.sendMessage("humidity/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01&room=\(self.currentRoom.roomName)")
             return
         }
         
@@ -298,7 +300,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             let monthInt = Int(monthString)
             let nextMonthString = "2015-\(monthInt!+1)"
             
-            self.sendMessage("liquid/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01")
+            self.sendMessage("liquid/dailyaverage?start=\(self.month)-01&end=\(nextMonthString)-01&room=\(self.currentRoom.roomName)")
             return
         }
         

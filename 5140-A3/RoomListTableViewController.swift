@@ -41,6 +41,7 @@ class RoomListTableViewController: UITableViewController {
         coapClient = SCClient(delegate: self)
         coapClient.sendToken = true
         coapClient.autoBlock1SZX = 2
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -182,6 +183,7 @@ class RoomListTableViewController: UITableViewController {
             let controller = segue.destinationViewController as! RoomDetailTableViewController
             controller.managedObjectContext = self.managedObjectContext
             self.controller = controller
+            controller.server = self.server
         }
     }
 

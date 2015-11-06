@@ -19,11 +19,13 @@ class MonthTableViewController: UITableViewController {
     let port = "5683"
     var host = "127.0.0.1"
     
+    var server: CentralServer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         availableMonths = Array<String>()
         
-        self.host = self.currentRoom.ip!
+        self.host = self.server.ip!
         
         // set up coap client
         coapClient = SCClient(delegate: self)
@@ -38,7 +40,7 @@ class MonthTableViewController: UITableViewController {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let today = formatter.stringFromDate(NSDate())
-        self.sendMessage("temperature/dailyaverage?start=2015-09-01&end=\(today)")
+        self.sendMessage("temperature/dailyaverage?start=2015-09-01&end=\(today)&room=\(self.currentRoom.roomName)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,6 +128,7 @@ class MonthTableViewController: UITableViewController {
             let controller = segue.destinationViewController as! HistoryMonthViewController
             controller.currentRoom = self.currentRoom
             self.controller = controller
+            controller.server = self.server
         }
     }
 }
