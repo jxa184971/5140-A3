@@ -293,7 +293,7 @@ extension HistoryDayViewController: SCClientDelegate {
         
         
         // make sure data transmission error, send the request again
-        if (self.time.count == 0 || self.temperature.count == 0)
+        if (self.successTimes == 0)
         {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
@@ -302,7 +302,7 @@ extension HistoryDayViewController: SCClientDelegate {
             return
         }
         
-        if (self.humidity.count == 0 && self.successTimes == 1)
+        if (self.successTimes == 1)
         {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
@@ -311,7 +311,7 @@ extension HistoryDayViewController: SCClientDelegate {
             return
         }
         
-        if (self.waterLevel.count == 0 && self.successTimes == 2)
+        if (self.successTimes == 2)
         {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
