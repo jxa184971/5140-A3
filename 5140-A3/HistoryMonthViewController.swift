@@ -22,6 +22,7 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
     let separatorLine = "\n-----------------\n"
     let port = "5683"
     var host = "127.0.0.1"
+    var successTimes:Int = 0
     
     var server: CentralServer!
     
@@ -269,6 +270,10 @@ extension HistoryMonthViewController: SCClientDelegate {
         }
         print(separatorLine + firstPartString + optString + separatorLine)
         
+        if message.code.toString() == "2.05"
+        {
+            self.successTimes++
+        }
         
         // make sure data transmission error, send the request again
         if (self.days.count == 0 || self.temperature.count == 0)
@@ -282,7 +287,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             return
         }
         
-        if (self.humidity.count == 0)
+        if (self.humidity.count == 0 && self.successTimes == 1)
         {
             let dateArray = self.month.componentsSeparatedByString("-")
             let monthString = dateArray[1]
@@ -293,7 +298,7 @@ extension HistoryMonthViewController: SCClientDelegate {
             return
         }
         
-        if (self.waterLevel.count == 0)
+        if (self.waterLevel.count == 0 && self.successTimes == 2)
         {
             let dateArray = self.month.componentsSeparatedByString("-")
             let monthString = dateArray[1]

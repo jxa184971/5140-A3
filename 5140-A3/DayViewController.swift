@@ -29,6 +29,7 @@ class DayViewController: UIViewController, ChartViewDelegate {
     let separatorLine = "\n-----------------\n"
     let port = "5683"
     var host = "127.0.0.1"
+    var successTimes:Int = 0
     
     var server: CentralServer!
     
@@ -274,6 +275,10 @@ extension DayViewController: SCClientDelegate {
         }
         print(separatorLine + firstPartString + optString + separatorLine)
         
+        if message.code.toString() == "2.05"
+        {
+            self.successTimes++
+        }
         
         // make sure data transmission error, send the request again
         if (self.time.count == 0 || self.temperature.count == 0)
@@ -282,13 +287,13 @@ extension DayViewController: SCClientDelegate {
             return
         }
         
-        if (self.humidity.count == 0)
+        if (self.humidity.count == 0 && self.successTimes == 1)
         {
             self.sendMessage("humidity/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)&room=\(self.currentRoom.roomName)")
             return
         }
         
-        if (self.waterLevel.count == 0)
+        if (self.waterLevel.count == 0 && self.successTimes == 2)
         {
             self.sendMessage("liquid/hourlyaverage?start=\(self.dateString)&end=\(self.dateString)&room=\(self.currentRoom.roomName)")
             return
