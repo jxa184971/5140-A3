@@ -53,7 +53,7 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
         self.waterLevel = []
         // initialize label
         let roomName = self.currentRoom.roomName!
-        self.titleLabel.text = "\(roomName) 01/11/2015"
+        self.titleLabel.text = "Room \(roomName): \(today) "
         self.subtitleLabel.text = ""
         self.temperatureLabel.text = ""
         self.humidityLabel.text = ""
