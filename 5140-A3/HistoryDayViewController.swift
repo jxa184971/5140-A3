@@ -16,7 +16,7 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
     var humidity: [Double]!
     var time: [String]!
     var waterLevel: [Double]!
-    var maxCoapTimes: Int = 0
+    var successTimes: Int = 0
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var lineChartView: LineChartView!
@@ -169,7 +169,6 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
     // send message to COAP server
     func sendMessage(urlPath: String)
     {
-        self.maxCoapTimes++
         let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .Confirmable, payload: "test".dataUsingEncoding(NSUTF8StringEncoding))
         
         if let stringData = urlPath.dataUsingEncoding(NSUTF8StringEncoding) {
@@ -287,9 +286,9 @@ extension HistoryDayViewController: SCClientDelegate {
         }
         print(separatorLine + firstPartString + optString + separatorLine)
         
-        if self.maxCoapTimes > 10
+        if message.code.toString() == "2.05"
         {
-            return
+            self.successTimes++
         }
         
         
@@ -303,7 +302,7 @@ extension HistoryDayViewController: SCClientDelegate {
             return
         }
         
-        if (self.humidity.count == 0)
+        if (self.humidity.count == 0 && self.successTimes == 1)
         {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
@@ -312,7 +311,7 @@ extension HistoryDayViewController: SCClientDelegate {
             return
         }
         
-        if (self.waterLevel.count == 0)
+        if (self.waterLevel.count == 0 && self.successTimes == 2)
         {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
