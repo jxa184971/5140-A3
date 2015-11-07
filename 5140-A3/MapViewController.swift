@@ -193,6 +193,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         {
             let controller = segue.destinationViewController as! RoomDetailTableViewController
             controller.currentRoom = self.currentRoom
+            controller.server = self.server
         }
     }
 
