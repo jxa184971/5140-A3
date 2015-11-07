@@ -72,11 +72,11 @@ class HistoryMonthViewController: UIViewController, ChartViewDelegate {
         
         self.barChartView.leftAxis.drawGridLinesEnabled = false
         self.barChartView.leftAxis.customAxisMin = 0
-        self.barChartView.leftAxis.customAxisMax = 50
+        self.barChartView.leftAxis.customAxisMax = 100
         
         self.barChartView.rightAxis.drawGridLinesEnabled = false
         self.barChartView.rightAxis.customAxisMin = 0
-        self.barChartView.rightAxis.customAxisMax = 800
+        self.barChartView.rightAxis.customAxisMax = 1000
         
         // display values in line chart view
         self.setCharts(self.days, values1: self.temperature, values2: self.humidity, values3: self.waterLevel)

@@ -67,11 +67,11 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
         
         self.lineChartView.leftAxis.drawGridLinesEnabled = false
         self.lineChartView.leftAxis.customAxisMin = 0
-        self.lineChartView.leftAxis.customAxisMax = 50
+        self.lineChartView.leftAxis.customAxisMax = 100
         
         self.lineChartView.rightAxis.drawGridLinesEnabled = false
         self.lineChartView.rightAxis.customAxisMin = 0
-        self.lineChartView.rightAxis.customAxisMax = 800
+        self.lineChartView.rightAxis.customAxisMax = 1000
         
         // display values in line chart view
         self.setCharts(self.time, values1: self.temperature, values2: self.humidity, values3: self.waterLevel)
@@ -206,7 +206,7 @@ extension HistoryDayViewController: SCClientDelegate {
         if let pay = message.payload {
             if let string = NSString(data: pay, encoding:NSUTF8StringEncoding) {
                 payloadstring = String(string)
-                var timeArray = Array<String>()
+                
                 do
                 {
                     let json = try NSJSONSerialization.JSONObjectWithData(pay, options: NSJSONReadingOptions.AllowFragments)
@@ -215,6 +215,7 @@ extension HistoryDayViewController: SCClientDelegate {
                     if (dateType == "temperature")
                     {
                         var tempArray = Array<Double>()
+                        var timeArray = Array<String>()
                         let resultArray = resultJSON.valueForKey("result") as! NSArray
                         for var i = 0; i < resultArray.count; i++
                         {

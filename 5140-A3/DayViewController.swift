@@ -64,11 +64,11 @@ class DayViewController: UIViewController, ChartViewDelegate {
         
         self.lineChartView.leftAxis.drawGridLinesEnabled = false
         self.lineChartView.leftAxis.customAxisMin = 0
-        self.lineChartView.leftAxis.customAxisMax = 50
+        self.lineChartView.leftAxis.customAxisMax = 100
         
         self.lineChartView.rightAxis.drawGridLinesEnabled = false
         self.lineChartView.rightAxis.customAxisMin = 0
-        self.lineChartView.rightAxis.customAxisMax = 800
+        self.lineChartView.rightAxis.customAxisMax = 1000
         
         // display values in line chart view
         self.setCharts(self.time, values1: self.temperature, values2: self.humidity, values3: self.waterLevel)
