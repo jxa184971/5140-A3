@@ -169,6 +169,7 @@ class HistoryDayViewController: UIViewController, ChartViewDelegate {
     // send message to COAP server
     func sendMessage(urlPath: String)
     {
+        self.maxCoapTimes++
         let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .Confirmable, payload: "test".dataUsingEncoding(NSUTF8StringEncoding))
         
         if let stringData = urlPath.dataUsingEncoding(NSUTF8StringEncoding) {
@@ -285,6 +286,10 @@ extension HistoryDayViewController: SCClientDelegate {
         }
         print(separatorLine + firstPartString + optString + separatorLine)
         
+        if self.maxCoapTimes > 10
+        {
+            return
+        }
         
         
         // make sure data transmission error, send the request again
